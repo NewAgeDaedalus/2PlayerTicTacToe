@@ -31,6 +31,15 @@ int checkWon(int znak){
         return 0;
 }
 
+int checkIfDraw(){
+        for(int i = 0; i <3; i++)
+                for(int j = 0; j < 3;j++)
+                        if (grid[i][j] == PRAZNO)
+                                return 0;
+        return 1;
+
+}
+
 ssize_t readn(int sock, void *ptr, size_t n){
         size_t nleft = n;
         ssize_t nread; 
@@ -122,11 +131,15 @@ void playGame(int peerSock, int znak, int playerNumber){
                 }
                 whosplayerTurn = whosplayerTurn%2 +1;
                 if (checkWon(znak)){
-                       printf("Pobijedio si");
+                       printf("Pobijedio si\n");
                        break;
                 }
                 if(checkWon(protZnak)){
-                        printf("Izgubio si");
+                        printf("Izgubio si\n");
+                        break;
+                }
+                if(checkIfDraw()){
+                        printf("DRAW\n");
                         break;
                 }
         }
